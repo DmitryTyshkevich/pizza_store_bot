@@ -11,7 +11,16 @@ user_private_router.message.filter(ChatTypeFilter(["private"]))
 
 @user_private_router.message(CommandStart())
 async def start_cmd(message: types.Message):
-    await message.answer("Привет, я виртуальный помощник", reply_markup=reply.start_kb)
+    await message.answer(
+        "Привет, я виртуальный помощник", reply_markup=reply.get_keyboard(
+            "Меню",
+            "О магазине",
+            "Варианты оплаты",
+            "Варианты доставки",
+            placeholder="Что вас интересует",
+            sizes=(2,2)
+        ),
+    )
 
 
 # @user_private_router.message(F.text.lower() == 'меню')
