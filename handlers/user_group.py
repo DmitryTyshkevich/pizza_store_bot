@@ -1,5 +1,5 @@
 from string import punctuation
-from aiogram import F, types, Router, Bot
+from aiogram import types, Router, Bot
 from aiogram.filters import Command
 from filters.chat_types import ChatTypeFilter
 
