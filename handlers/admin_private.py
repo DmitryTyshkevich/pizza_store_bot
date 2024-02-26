@@ -17,10 +17,8 @@ from aiogram.fsm.context import FSMContext
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
 admin_router = Router()
 admin_router.message.filter(ChatTypeFilter(["private"]), IsAdmin())
-
 
 ADMIN_KB = get_keyboard(
     "Добавить товар",
@@ -71,7 +69,6 @@ async def starring_at_product(message: types.Message, session: AsyncSession):
 
 @admin_router.callback_query(F.data.startswith("delete_"))
 async def delete_product(callback: types.CallbackQuery, session: AsyncSession):
-
     product_id = callback.data.split("_")[-1]
     await orm_delete_product(session, int(product_id))
 
@@ -81,7 +78,7 @@ async def delete_product(callback: types.CallbackQuery, session: AsyncSession):
 
 @admin_router.callback_query(StateFilter(None), F.data.startswith("change_"))
 async def change_product_callback(
-    callback: types.CallbackQuery, state: FSMContext, session: AsyncSession
+        callback: types.CallbackQuery, state: FSMContext, session: AsyncSession
 ):
     product_id = callback.data.split("_")[-1]
 
@@ -119,7 +116,6 @@ async def cancel_handler(message: types.Message, state: FSMContext) -> None:
 @admin_router.message(StateFilter("*"), Command("назад"))
 @admin_router.message(StateFilter("*"), F.text.casefold() == "назад")
 async def cancel_handler(message: types.Message, state: FSMContext) -> None:
-
     current_state = await state.get_state()
 
     if current_state == AddProduct.name:
@@ -198,7 +194,6 @@ async def add_name(message: types.Message, state: FSMContext):
 
 @admin_router.message(AddProduct.image, or_f(F.photo, F.text == "."))
 async def add_image(message: types.Message, state: FSMContext, session: AsyncSession):
-
     if message.text and message.text == ".":
         await state.update_data(image=AddProduct.product_for_change.image)
 

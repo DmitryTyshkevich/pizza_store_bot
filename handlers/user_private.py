@@ -6,8 +6,6 @@ from kbds import reply
 from aiogram.utils.formatting import as_list, as_marked_section, Bold
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
-
 user_private_router = Router()
 user_private_router.message.filter(ChatTypeFilter(["private"]))
 
@@ -21,7 +19,7 @@ async def start_cmd(message: types.Message):
             "Варианты оплаты",
             "Варианты доставки",
             placeholder="Что вас интересует",
-            sizes=(2,2)
+            sizes=(2, 2)
         ),
     )
 
@@ -33,7 +31,7 @@ async def menu_cmd(message: types.Message, session: AsyncSession):
         await message.answer_photo(
             product.image,
             caption=f"<strong>{product.name}\
-                    </strong>\n{product.description}\nСтоимость: {round(product.price, 2)}$",    
+                    </strong>\n{product.description}\nСтоимость: {round(product.price, 2)}$",
         )
 
     await message.answer("Вот меню:")

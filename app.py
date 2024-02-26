@@ -17,7 +17,6 @@ from handlers.admin_private import admin_router
 
 from common.bot_cmds_list import private
 
-
 # ALLOWED_UPDATES = ["message", "edited_message", "callback_query"]
 
 bot = Bot(token=os.getenv("TOKEN"), parse_mode=ParseMode.HTML)
@@ -31,7 +30,6 @@ dp.include_router(admin_router)
 
 
 async def on_startup(bot):
-
     run_param = False
     if run_param:
         await drop_db()
